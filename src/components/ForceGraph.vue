@@ -169,7 +169,7 @@ export default {
           .data(this.links)
         .enter().append("path")
           .attr("class", d => "link " + d.type)
-          .attr("stroke", "black")
+          .attr("stroke", "#044386")
           .attr("stroke-width",d => Math.sqrt(d.value))
 
         // Redrawing nodes to avoid lines above them
@@ -177,7 +177,7 @@ export default {
         graph.selectAll("circle")
           .data(this.nodes)
         .enter().append("circle")
-          .attr("r", d => Math.random(d)*(50-30)+30)
+          .attr("r", 30)
           .attr("class", d => d.class)
           .call(d3.drag()
             .on('start', this.nodeDragStarted)
