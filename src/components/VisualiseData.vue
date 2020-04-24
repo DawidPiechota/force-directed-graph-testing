@@ -33,7 +33,7 @@ export default {
     //     this.data = data;
     // });
         //wrapper for fetch basically
-        d3.json("https://gist.githubusercontent.com/DawidPiechota/bc9eae88413e3546e7af2a92539f30bc/raw/8705fe2ba03868c55f6e436ddb453d8e834a74a6/data3.json")
+        d3.json("https://gist.githubusercontent.com/DawidPiechota/bc9eae88413e3546e7af2a92539f30bc/raw/7a2633381f014dd12feb810e56e6702ab30914a2/data3.json")
         .then(data => {this.data = data})
 
         // d3.json(this.dataList[dataIndex]).then(data => {

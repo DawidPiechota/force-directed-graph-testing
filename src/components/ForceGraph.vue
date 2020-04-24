@@ -100,20 +100,6 @@ export default {
       this.selections.svg = d3.select(this.$el.querySelector("svg"))
       const svg = this.selections.svg
 
-    //   // Define the arrow marker
-    //   svg.append("svg:defs").selectAll("line")
-    //         .data(["end"])     // Different link/path types can be defined here
-    //       .enter().append("svg:line")    // This section adds in the arrows
-    //         .attr("id", String)
-    //         .attr("viewBox", "0 -5 10 10")
-    //         .attr("refX", 43)              // Prevents arrowhead from being covered by circle
-    //         .attr("refY", 0)
-    //         .attr("markerWidth", 6)
-    //         .attr("markerHeight", 6)
-    //         .attr("orient", "auto")
-    //       .append("svg:path")
-    //         .attr("d", "M0,-5L10,0L0,5");
-
 
       // Add zoom and panning triggers
       this.zoom = d3.zoom()
@@ -121,11 +107,9 @@ export default {
         .on('zoom', this.zoomed)
       svg.call(this.zoom)
 
-      // A background grid to help user experience
+      // Background grid
       // The width and height depends on the minimum scale extent and
       // the + 10% and negative index to create an infinite grid feel
-      // The precedence of this element is important since you'll have
-      // click events on the elements above the grid
       this.selections.grid = svg.append('rect')
         .attr('x', '-10%')
         .attr('y', '-10%')
@@ -134,15 +118,14 @@ export default {
         .attr('fill', 'url(#grid)')
 
       this.selections.graph = svg.append("g")
-      //const graph = this.selections.graph
 
-      // Node and link count is nice :)
+      // Node and link count
       this.selections.stats = svg.append('text')
         .attr('x', '1%')
         .attr('y', '98%')
         .attr('text-anchor', 'left');
 
-      // Some caption
+      // Caption
       this.selections.caption = svg.append('g');
       this.selections.caption.append('rect')
         .attr('width', '200')
@@ -160,12 +143,7 @@ export default {
         }
 
         const link = d => {
-          // Self-link support
-          if (d.source.index === d.target.index) {
-            return `M${d.source.x-1},${d.source.y-1}A30,30 -10,1,0 ${d.target.x+1},${d.target.y+1}`;
-          } else {
             return "M" + d.source.x + "," + d.source.y + " L" + d.target.x + "," + d.target.y;
-          }
         }
 
         const graph = this.selections.graph
@@ -191,13 +169,15 @@ export default {
           .data(this.links)
         .enter().append("path")
           .attr("class", d => "link " + d.type)
+          .attr("stroke", "black")
+          .attr("stroke-width",d => Math.sqrt(d.value))
 
         // Redrawing nodes to avoid lines above them
         graph.selectAll("circle").remove()
         graph.selectAll("circle")
           .data(this.nodes)
         .enter().append("circle")
-          .attr("r", 30)
+          .attr("r", d => Math.random(d)*(50-30)+30)
           .attr("class", d => d.class)
           .call(d3.drag()
             .on('start', this.nodeDragStarted)
@@ -215,15 +195,6 @@ export default {
           .attr("y", ".31em")
           .attr("text-anchor", "middle")
           .text(d => d.name)
-
-        // Add 'marker-end' attribute to each path
-        // const svg = d3.select(this.$el.querySelector("svg"))
-        // svg.selectAll("g").selectAll("path").attr("marker-end", d => {
-        //   // Caption items doesn't have source and target
-        //   if (d.source && d.target &&
-        //     d.source.index === d.target.index) return "url(#end-self)";
-        //   else return "url(#end)";
-        // });
 
         // Update caption every time data changes
         this.updateCaption()
@@ -269,7 +240,6 @@ export default {
         this.selections.stats.text('Nodes: ' + nodeCount + ' / Connections: ' + linkCount);
       },
       updateCaption() {
-        // WARNING: Some gross math will happen here!
         const lineHeight = 30
         const lineMiddle = (lineHeight / 2)
         const captionXPadding = 28
@@ -451,7 +421,7 @@ export default {
     opacity: 1;
   }
 
-  path.link {
+  /*path.link {
     fill: none;
     stroke: #666;
     stroke-width: 1.5px;
@@ -462,7 +432,7 @@ export default {
   }
   path.link.straight {
     stroke: #7f3f00;
-  }
+  }*/
 
   circle {
     fill: #ff0000;
