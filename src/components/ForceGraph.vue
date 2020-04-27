@@ -169,8 +169,8 @@ export default {
           .data(this.links)
         .enter().append("path")
           .attr("class", d => "link " + d.type)
-          .attr("stroke", "#044386")
-          .attr("stroke-width",d => Math.sqrt(d.value))
+          .attr("stroke", "#007bff")
+          .attr("stroke-width",d => Math.sqrt(d.value/20))//d => Math.sqrt(d.value))
 
         // Redrawing nodes to avoid lines above them
         graph.selectAll("circle").remove()
@@ -435,7 +435,7 @@ export default {
   }*/
 
   circle {
-    fill: #ff0000;
+    fill: #a6caff;
     stroke: #191900;
     stroke-width: 1.5px;
   }

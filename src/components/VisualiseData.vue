@@ -1,8 +1,9 @@
 <template>
   <div>
       <ForceGraph :data="data"></ForceGraph>
-      <div style="padding-top: 10px; text-align: center" @click="changeData()">
-        <button>Change Data</button>
+      <div style="padding-top: 10px; text-align: center">
+        <input type="text" placeholder="http://www.json-generator.com/api/json/get/ckPrMftjaW?indent=2" v-model="inputUrl">
+        <button  @click="changeData()">Get dżejson</button>
       </div>
     </div>
 </template>
@@ -19,6 +20,7 @@ export default {
     data() {
       return {
         data: null,
+        inputUrl: "http://www.json-generator.com/api/json/get/ckPrMftjaW?indent=2",
         dataList: ['data1.json', 'data2.json', 'data3.json'],
       }
     },
@@ -33,7 +35,7 @@ export default {
     //     this.data = data;
     // });
         //wrapper for fetch basically
-        d3.json("https://gist.githubusercontent.com/DawidPiechota/bc9eae88413e3546e7af2a92539f30bc/raw/7a2633381f014dd12feb810e56e6702ab30914a2/data3.json")
+        d3.json(this.inputUrl)
         .then(data => {this.data = data})
 
         // d3.json(this.dataList[dataIndex]).then(data => {
