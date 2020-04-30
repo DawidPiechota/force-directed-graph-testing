@@ -3,7 +3,7 @@
       <ForceGraph :data="data"></ForceGraph>
       <div style="padding-top: 10px; text-align: center">
         <input type="text" placeholder="http://www.json-generator.com/api/json/get/ckPrMftjaW?indent=2" v-model="inputUrl">
-        <button  @click="changeData()">Get dżejson</button>
+        <button  @click="changeData()">Visualise</button>
       </div>
     </div>
 </template>

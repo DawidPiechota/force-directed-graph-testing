@@ -1,5 +1,5 @@
 <template>
-    <div :style="{ width: width + 'px', height: height + 'px', border: '2px solid black' }">
+    <div :style="{ width: width + 'px', height: height + 'px', border: '2px solid blue' }">
       <svg width="100%" height="100%">
         <defs>
           <pattern id="innerGrid" :width="innerGridSize" :height="innerGridSize" patternUnits="userSpaceOnUse">
@@ -43,12 +43,12 @@ export default {
             radius: 35
           },
           forceX: {
-            enabled: true,
+            enabled: false,
             strength: 0.05,
             x: 0.5
           },
           forceY: {
-            enabled: true,
+            enabled: false,
             strength: 0.35,
             y: 0.5
           },
@@ -120,7 +120,12 @@ export default {
       this.selections.graph = svg.append("g")
 
       // Node and link count
-      this.selections.stats = svg.append('text')
+      this.selections.statsNodes = svg.append('text')
+        .attr('x', '1%')
+        .attr('y', '96%')
+        .attr('text-anchor', 'left');
+
+      this.selections.statsConnections = svg.append('text')
         .attr('x', '1%')
         .attr('y', '98%')
         .attr('text-anchor', 'left');
@@ -170,7 +175,7 @@ export default {
         .enter().append("path")
           .attr("class", d => "link " + d.type)
           .attr("stroke", "#007bff")
-          .attr("stroke-width",d => Math.sqrt(d.value/20))//d => Math.sqrt(d.value))
+          .attr("stroke-width",1) //d => Math.sqrt(d.value))//d => Math.sqrt(d.value))
 
         // Redrawing nodes to avoid lines above them
         graph.selectAll("circle").remove()
@@ -237,7 +242,8 @@ export default {
           nodeCount = highlightedNodes.size()
           linkCount = highlightedLinks.size()
         }
-        this.selections.stats.text('Nodes: ' + nodeCount + ' / Connections: ' + linkCount);
+        this.selections.statsNodes.text('Nodes: ' + nodeCount );
+        this.selections.statsConnections.text('Connections: ' + linkCount);
       },
       updateCaption() {
         const lineHeight = 30
@@ -435,20 +441,20 @@ export default {
   }*/
 
   circle {
-    fill: #a6caff;
+    fill: #413ec4;
     stroke: #191900;
     stroke-width: 1.5px;
   }
   circle.rare {
-    fill: #b5d9ff;
+    fill: #5cd1ff;
     stroke: #001900;
   }
   circle.normal {
-    fill: #3e9bff;
+    fill: #0093ce;
     stroke: #001900;
   }
   circle.frequent {
-    fill: #0026ff;
+    fill: #003f58;
     stroke: #001900;
   }
 
