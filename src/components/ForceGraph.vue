@@ -140,6 +140,13 @@ export default {
         .attr('class', 'caption');
     },
     methods: {
+      getRandomBlue(d) {
+        if(d.value < 5) return       "#D0FFD3";
+        else if(d.value < 30) return  "#B0FFB3";
+        else if(d.value < 40) return "#86FF8B";
+        else if(d.value < 50) return "#5CFF60";
+        else return "#2EFF34";
+      },
       tick() {
         // If no data is passed to the Vue component, do nothing
         if (!this.data) { return }
@@ -174,8 +181,8 @@ export default {
           .data(this.links)
         .enter().append("path")
           .attr("class", d => "link " + d.type)
-          .attr("stroke", "#007bff")
-          .attr("stroke-width",1) //d => Math.sqrt(d.value))//d => Math.sqrt(d.value))
+          .attr("stroke", d => this.getRandomBlue(d))//"#007bff")
+          .attr("stroke-width", d => Math.sqrt(d.value*2,5))//d => Math.sqrt(d.value))
 
         // Redrawing nodes to avoid lines above them
         graph.selectAll("circle").remove()
