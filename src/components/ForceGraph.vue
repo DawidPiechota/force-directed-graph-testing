@@ -141,11 +141,11 @@ export default {
     },
     methods: {
       getRandomBlue(d) {
-        if(d.value < 5) return       "#D0FFD3";
-        else if(d.value < 30) return  "#B0FFB3";
-        else if(d.value < 40) return "#86FF8B";
-        else if(d.value < 50) return "#5CFF60";
-        else return "#2EFF34";
+        if(d.value < 5) return       "#b0e4ff";
+        else if(d.value < 30) return  "#8cd7ff";
+        else if(d.value < 40) return "#66caff";
+        else if(d.value < 50) return "#1cb0ff";
+        else return "#00a4fc";
       },
       tick() {
         // If no data is passed to the Vue component, do nothing
